@@ -1,0 +1,33 @@
+<div style="max-width: 400px; margin: 60px auto; font-family: sans-serif;">
+  <h2 style="margin-bottom: 20px;">Resend Confirmation Instructions</h2>
+
+  <% if resource.errors.any? %>
+    <div style="background: #fdecea; border: 1px solid #f5c6cb; color: #721c24; padding: 12px 16px; border-radius: 6px; margin-bottom: 20px;">
+      <% resource.errors.full_messages.each do |msg| %>
+        <% if msg.include?("already confirmed") %>
+          <p style="margin: 0;">Your email is already confirmed. <a href="/users/sign_in">Please sign in.</a></p>
+        <% else %>
+          <p style="margin: 0;"><%= msg %></p>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+    <div style="margin-bottom: 16px;">
+      <%= f.label :email, style: "display: block; margin-bottom: 6px; font-weight: bold;" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email",
+          value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email),
+          style: "width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; box-sizing: border-box;" %>
+    </div>
+
+    <div>
+      <%= f.submit "Resend confirmation instructions",
+          style: "width: 100%; padding: 10px; background: #4285f4; color: white; border: none; border-radius: 6px; font-size: 15px; cursor: pointer;" %>
+    </div>
+  <% end %>
+
+  <div style="margin-top: 16px; font-size: 13px;">
+    <%= render "devise/shared/links" %>
+  </div>
+</div>

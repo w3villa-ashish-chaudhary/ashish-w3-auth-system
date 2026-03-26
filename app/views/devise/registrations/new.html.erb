@@ -1,0 +1,74 @@
+<div style="max-width: 400px; margin: 60px auto; font-family: sans-serif;">
+  <h2 style="margin-bottom: 20px;">Sign up</h2>
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <div style="margin-bottom: 16px;">
+      <%= f.label :email, style: "display: block; margin-bottom: 6px; font-weight: bold;" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email",
+          style: "width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; box-sizing: border-box;" %>
+    </div>
+
+    <div style="margin-bottom: 16px;">
+      <%= f.label :password, style: "display: block; margin-bottom: 6px; font-weight: bold;" %>
+      <% if @minimum_password_length %>
+        <small style="color: #888;">(<%= @minimum_password_length %> characters minimum)</small>
+      <% end %>
+      <div style="position: relative;">
+        <%= f.password_field :password, autocomplete: "new-password", id: "signup_password",
+            style: "width: 100%; padding: 10px; padding-right: 40px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; box-sizing: border-box;" %>
+        <span onclick="toggleSignupPassword()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 18px;" id="signup_eye">👁</span>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 16px;">
+      <%= f.label :password_confirmation, style: "display: block; margin-bottom: 6px; font-weight: bold;" %>
+      <div style="position: relative;">
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", id: "signup_password_confirm",
+            style: "width: 100%; padding: 10px; padding-right: 40px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; box-sizing: border-box;" %>
+        <span onclick="toggleSignupConfirm()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 18px;" id="confirm_eye">👁</span>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 16px;">
+      <%= f.submit "Sign up",
+          style: "width: 100%; padding: 10px; background: #4285f4; color: white; border: none; border-radius: 6px; font-size: 15px; cursor: pointer;" %>
+    </div>
+  <% end %>
+
+  <div style="margin-bottom: 16px;">
+    <%= button_to "Sign up with Google", user_google_oauth2_omniauth_authorize_path, method: :post, data: { turbo: false },
+        style: "width: 100%; padding: 10px; background: white; color: #444; border: 1px solid #ccc; border-radius: 6px; font-size: 15px; cursor: pointer;" %>
+  </div>
+
+  <div style="font-size: 13px;">
+    <%= render "devise/shared/links" %>
+  </div>
+</div>
+
+<script>
+  function toggleSignupPassword() {
+    const field = document.getElementById("signup_password");
+    const icon = document.getElementById("signup_eye");
+    if (field.type === "password") {
+      field.type = "text";
+      icon.textContent = "🙈";
+    } else {
+      field.type = "password";
+      icon.textContent = "👁";
+    }
+  }
+
+  function toggleSignupConfirm() {
+    const field = document.getElementById("signup_password_confirm");
+    const icon = document.getElementById("confirm_eye");
+    if (field.type === "password") {
+      field.type = "text";
+      icon.textContent = "🙈";
+    } else {
+      field.type = "password";
+      icon.textContent = "👁";
+    }
+  }
+</script>

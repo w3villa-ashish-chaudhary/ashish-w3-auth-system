@@ -1,0 +1,23 @@
+<div style="max-width: 400px; margin: 60px auto; font-family: sans-serif;">
+  <h2 style="margin-bottom: 10px;">Forgot your password?</h2>
+  <p style="color: #666; margin-bottom: 20px; font-size: 14px;">Enter your email and we'll send you reset instructions.</p>
+
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <div style="margin-bottom: 16px;">
+      <%= f.label :email, style: "display: block; margin-bottom: 6px; font-weight: bold;" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email",
+          style: "width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; box-sizing: border-box;" %>
+    </div>
+
+    <div style="margin-bottom: 16px;">
+      <%= f.submit "Send me reset instructions",
+          style: "width: 100%; padding: 10px; background: #4285f4; color: white; border: none; border-radius: 6px; font-size: 15px; cursor: pointer;" %>
+    </div>
+  <% end %>
+
+  <div style="font-size: 13px;">
+    <%= render "devise/shared/links" %>
+  </div>
+</div>
