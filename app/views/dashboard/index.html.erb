@@ -1,2 +1,6 @@
-<h1>Dashboard#index</h1>
-<p>Find me in app/views/dashboard/index.html.erb</p>
+<div style="max-width: 800px; margin: 60px auto; font-family: sans-serif;">
+  <h1>Welcome, <%= current_user.email %>!</h1>
+  <p style="color: #666;">You are successfully logged in.</p>
+  <%= button_to "Sign out", destroy_user_session_path, method: :delete,
+      style: "padding: 10px 20px; background: #e53935; color: white; border: none; border-radius: 6px; font-size: 15px; cursor: pointer;" %>
+</div>

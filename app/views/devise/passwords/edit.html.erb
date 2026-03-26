@@ -1,25 +1,65 @@
-<h2>Change your password</h2>
+<div style="max-width: 400px; margin: 60px auto; font-family: sans-serif;">
+  <h2 style="margin-bottom: 10px;">Change your password</h2>
+  <p style="color: #666; margin-bottom: 20px; font-size: 14px;">Enter your new password below.</p>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-  <%= f.hidden_field :reset_password_token %>
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+    <%= f.hidden_field :reset_password_token %>
 
-  <div class="field">
-    <p><%= f.label :password, "New password" %></p>
-    <% if @minimum_password_length %>
-      <p><em>(<%= @minimum_password_length %> characters minimum)</em></p>
-    <% end %>
-    <p><%= f.password_field :password, autofocus: true, autocomplete: "new-password" %></p>
+    <div style="margin-bottom: 16px;">
+      <%= f.label :password, "New password", style: "display: block; margin-bottom: 6px; font-weight: bold;" %>
+      <% if @minimum_password_length %>
+        <small style="color: #888;">(<%= @minimum_password_length %> characters minimum)</small>
+      <% end %>
+      <div style="position: relative;">
+        <%= f.password_field :password, autofocus: true, autocomplete: "new-password", id: "new_password",
+            style: "width: 100%; padding: 10px; padding-right: 40px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; box-sizing: border-box;" %>
+        <span onclick="toggleNewPassword()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 18px;" id="new_eye">👁</span>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 16px;">
+      <%= f.label :password_confirmation, "Confirm new password", style: "display: block; margin-bottom: 6px; font-weight: bold;" %>
+      <div style="position: relative;">
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", id: "confirm_new_password",
+            style: "width: 100%; padding: 10px; padding-right: 40px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; box-sizing: border-box;" %>
+        <span onclick="toggleConfirmPassword()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 18px;" id="confirm_new_eye">👁</span>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 16px;">
+      <%= f.submit "Change my password",
+          style: "width: 100%; padding: 10px; background: #4285f4; color: white; border: none; border-radius: 6px; font-size: 15px; cursor: pointer;" %>
+    </div>
+  <% end %>
+
+  <div style="font-size: 13px;">
+    <%= render "devise/shared/links" %>
   </div>
+</div>
 
-  <div class="field">
-    <p><%= f.label :password_confirmation, "Confirm new password" %></p>
-    <p><%= f.password_field :password_confirmation, autocomplete: "new-password" %></p>
-  </div>
+<script>
+  function toggleNewPassword() {
+    const field = document.getElementById("new_password");
+    const icon = document.getElementById("new_eye");
+    if (field.type === "password") {
+      field.type = "text";
+      icon.textContent = "🙈";
+    } else {
+      field.type = "password";
+      icon.textContent = "👁";
+    }
+  }
 
-  <div class="actions">
-    <%= f.submit "Change my password" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+  function toggleConfirmPassword() {
+    const field = document.getElementById("confirm_new_password");
+    const icon = document.getElementById("confirm_new_eye");
+    if (field.type === "password") {
+      field.type = "text";
+      icon.textContent = "🙈";
+    } else {
+      field.type = "password";
+      icon.textContent = "👁";
+    }
+  }
+</script>

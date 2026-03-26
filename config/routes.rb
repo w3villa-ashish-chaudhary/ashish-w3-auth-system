@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get "dashboard/index"
   devise_for :users, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
@@ -9,4 +8,6 @@ Rails.application.routes.draw do
   end
 
   root to: redirect('/users/sign_in')
+
+  get '/dashboard', to: 'dashboard#index'
 end
