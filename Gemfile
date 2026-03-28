@@ -3,10 +3,10 @@ source "https://rubygems.org"
 gem "rails", "~> 7.2.3", ">= 7.2.3.1"
 gem "sprockets-rails"
 
-# ✅ PostgreSQL (Production)
+# PostgreSQL (production)
 gem "pg"
 
-# ✅ MySQL (Only for local development)
+# MySQL (local only)
 group :development do
   gem "mysql2", "~> 0.5"
 end
@@ -23,7 +23,7 @@ gem "omniauth"
 gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection"
 
-# Env variables
+# Env
 gem "dotenv-rails", groups: [:development, :test]
 
 gem "tzinfo-data", platforms: %i[ windows jruby ]
