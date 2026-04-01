@@ -28,14 +28,15 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.smtp_settings = {
-    address: 'smtp.sendgrid.net',
-    port: 587,
-    domain: 'ashish-w3-auth-system.onrender.com',
-    user_name: 'apikey',
-    password: ENV['SENDGRID_API_KEY'],
-    authentication: :plain,
-    enable_starttls_auto: true
-  }
+  address: 'smtp.sendgrid.net',
+  port: 465,
+  domain: 'ashish-w3-auth-system.onrender.com',
+  user_name: 'apikey',
+  password: ENV['SENDGRID_API_KEY'],
+  authentication: :plain,
+  tls: true,
+  enable_starttls_auto: false
+}
 
   # OmniAuth host
   OmniAuth.config.full_host = 'https://ashish-w3-auth-system.onrender.com'
