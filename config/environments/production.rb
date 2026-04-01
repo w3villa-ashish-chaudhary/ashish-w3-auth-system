@@ -24,20 +24,11 @@ Rails.application.configure do
   # Mailer host
   config.action_mailer.default_url_options = { host: 'ashish-w3-auth-system.onrender.com', protocol: 'https' }
 
-  # SMTP Gmail config
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.smtp_settings = {
-  address: 'smtp.sendgrid.net',
-  port: 465,
-  domain: 'ashish-w3-auth-system.onrender.com',
-  user_name: 'apikey',
-  password: ENV['SENDGRID_API_KEY'],
-  authentication: :plain,
-  tls: true,
-  enable_starttls_auto: false
-}
-
+  config.action_mailer.delivery_method = :sendgrid_actionmailer
+  config.action_mailer.sendgrid_actionmailer_settings = {
+    api_key: ENV['SENDGRID_API_KEY'],
+    raise_delivery_errors: true
+  }
   # OmniAuth host
   OmniAuth.config.full_host = 'https://ashish-w3-auth-system.onrender.com'
 end

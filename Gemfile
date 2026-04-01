@@ -5,7 +5,8 @@ gem "sprockets-rails"
 
 # PostgreSQL (production)
 gem "pg"
-
+gem 'sendgrid-ruby'
+gem 'sendgrid-actionmailer'
 # MySQL (local only)
 group :development do
   gem "mysql2", "~> 0.5"
