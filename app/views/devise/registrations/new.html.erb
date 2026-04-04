@@ -40,6 +40,10 @@
   <div style="margin-bottom: 16px;">
     <%= button_to "Sign up with Google", user_google_oauth2_omniauth_authorize_path, method: :post, data: { turbo: false },
         style: "width: 100%; padding: 10px; background: white; color: #444; border: 1px solid #ccc; border-radius: 6px; font-size: 15px; cursor: pointer;" %>
+
+    <%= button_to "Sign up with Facebook", user_facebook_omniauth_authorize_path, method: :post, data: { turbo: false },
+    style: "margin-top: 8px; background: #1877f2 !important; color: white !important; border: none !important;" %>
+        
   </div>
 
   <div style="font-size: 13px;">
