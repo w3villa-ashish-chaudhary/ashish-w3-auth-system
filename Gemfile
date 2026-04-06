@@ -26,8 +26,8 @@ gem 'omniauth-facebook'
 gem "omniauth-rails_csrf_protection"
 gem 'aws-sdk-s3'
 gem 'image_processing', '~> 1.2'
-gem 'wicked_pdf'
-gem 'wkhtmltopdf-binary'
+gem 'prawn'
+gem 'prawn-table'
 
 # Env
 gem "dotenv-rails", groups: [:development, :test]

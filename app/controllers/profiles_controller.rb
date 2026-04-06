@@ -24,11 +24,38 @@ class ProfilesController < ApplicationController
   def download
     @user = current_user
     respond_to do |format|
-      format.html
       format.pdf do
-        render pdf: "profile_#{@user.id}",
-               template: "profiles/download",
-               layout: "pdf"
+        pdf = Prawn::Document.new
+        pdf.font_size 12
+
+        pdf.text "User Profile", size: 24, style: :bold
+        pdf.move_down 10
+        pdf.stroke_horizontal_rule
+        pdf.move_down 20
+
+        pdf.text "Email:", style: :bold
+        pdf.text @user.email
+        pdf.move_down 10
+
+        pdf.text "Member Since:", style: :bold
+        pdf.text @user.created_at.strftime("%B %d, %Y")
+        pdf.move_down 10
+
+        pdf.text "Address:", style: :bold
+        pdf.text @user.address.present? ? @user.address : "Not provided"
+        pdf.move_down 10
+
+        pdf.text "Account Status:", style: :bold
+        pdf.text @user.confirmed? ? "Verified" : "Unverified"
+        pdf.move_down 10
+
+        pdf.text "Downloaded On:", style: :bold
+        pdf.text Time.now.strftime("%B %d, %Y at %I:%M %p")
+
+        send_data pdf.render,
+                  filename: "profile_#{@user.id}.pdf",
+                  type: "application/pdf",
+                  disposition: "attachment"
       end
     end
   end
