@@ -31,4 +31,5 @@ Rails.application.configure do
   }
   # OmniAuth host
   OmniAuth.config.full_host = 'https://ashish-w3-auth-system.onrender.com'
+  config.active_storage.service = :storj
 end

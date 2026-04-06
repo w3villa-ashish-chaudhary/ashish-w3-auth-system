@@ -1,6 +1,12 @@
 <div style="max-width: 800px; margin: 60px auto; font-family: sans-serif;">
   <h1>Welcome, <%= current_user.email %>!</h1>
-  <p style="color: #666;">You are successfully logged in.</p>
-  <%= button_to "Sign out", destroy_user_session_path, method: :delete,
-      style: "padding: 10px 20px; background: #e53935; color: white; border: none; border-radius: 6px; font-size: 15px; cursor: pointer;" %>
+  <p style="color: #666; margin-bottom: 24px;">You are successfully logged in.</p>
+
+  <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+    <%= link_to "My Profile", profile_path,
+        style: "padding: 10px 20px; background: #4f8ef7; color: white; border-radius: 6px; text-decoration: none;" %>
+
+    <%= button_to "Sign out", destroy_user_session_path, method: :delete,
+        style: "padding: 10px 20px; background: #e53935; color: white; border: none; border-radius: 6px; font-size: 15px; cursor: pointer;" %>
+  </div>
 </div>

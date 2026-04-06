@@ -1,0 +1,26 @@
+<h1>User Profile</h1>
+
+<div class="field">
+  <div class="label">Email</div>
+  <div class="value"><%= @user.email %></div>
+</div>
+
+<div class="field">
+  <div class="label">Member Since</div>
+  <div class="value"><%= @user.created_at.strftime("%B %d, %Y") %></div>
+</div>
+
+<div class="field">
+  <div class="label">Address</div>
+  <div class="value"><%= @user.address.present? ? @user.address : "Not provided" %></div>
+</div>
+
+<div class="field">
+  <div class="label">Account Status</div>
+  <div class="value"><%= @user.confirmed? ? "Verified" : "Unverified" %></div>
+</div>
+
+<div class="field">
+  <div class="label">Downloaded On</div>
+  <div class="value"><%= Time.now.strftime("%B %d, %Y at %I:%M %p") %></div>
+</div>
