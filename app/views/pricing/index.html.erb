@@ -1,0 +1,37 @@
+<div style="max-width: 900px; margin: 60px auto; padding: 0 20px;">
+  <h2 style="text-align: center; margin-bottom: 10px;">Pricing Plans</h2>
+  <p style="text-align: center; color: var(--small); margin-bottom: 40px;">Choose a plan that works for you</p>
+
+  <% if current_user.plan_active? %>
+    <div style="background: var(--flash-notice-bg); border: 1px solid var(--flash-notice-border); color: var(--flash-notice-text); padding: 12px 16px; border-radius: 8px; margin-bottom: 30px; text-align: center;">
+      Active Plan: <strong><%= current_user.plan.capitalize %></strong> — Expires at <%= current_user.plan_expires_at.strftime("%I:%M %p, %d %b %Y") %>
+    </div>
+  <% end %>
+
+  <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
+    <% @plans.each do |plan| %>
+      <div style="flex: 1; min-width: 250px; max-width: 280px; background: var(--card-bg); border: 2px solid <%= plan[:color] %>; border-radius: 12px; padding: 30px; text-align: center;">
+        <h3 style="color: <%= plan[:color] %>; font-size: 22px; margin-bottom: 8px;"><%= plan[:name] %></h3>
+        <p style="font-size: 28px; font-weight: bold; margin-bottom: 4px;">
+          <%= plan[:price] == 0 ? 'Free' : "₹#{plan[:price]/100}" %>
+        </p>
+        <p style="color: var(--small); margin-bottom: 20px;"><%= plan[:duration] %></p>
+
+        <ul style="list-style: none; margin-bottom: 24px; text-align: left;">
+          <% plan[:features].each do |feature| %>
+            <li style="padding: 6px 0; font-size: 14px;">✅ <%= feature %></li>
+          <% end %>
+        </ul>
+
+        <%= form_tag payment_create_path, method: :post, data: { turbo: false } do %>
+          <%= hidden_field_tag :plan, plan[:name].downcase %>
+          <%= submit_tag "Get #{plan[:name]}", style: "width: 100%; padding: 10px; background: #{plan[:color]}; color: white; border: none; border-radius: 6px; font-size: 15px; cursor: pointer;" %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div style="text-align: center; margin-top: 30px;">
+    <%= link_to "Back to Dashboard", dashboard_path, style: "color: var(--link);" %>
+  </div>
+</div>

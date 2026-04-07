@@ -28,6 +28,8 @@ gem 'aws-sdk-s3'
 gem 'image_processing', '~> 1.2'
 gem 'prawn'
 gem 'prawn-table'
+gem 'stripe'
+gem 'kaminari'
 
 # Env
 gem "dotenv-rails", groups: [:development, :test]

@@ -1,3 +1,5 @@
+require 'prawn'
+
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
@@ -14,10 +16,22 @@ class User < ApplicationRecord
   end
 
   def avatar_url
-    if profile_picture.attached?
-      profile_picture
-    else
-      nil
+    profile_picture.attached? ? profile_picture : nil
+  end
+
+  def admin?
+    role == 'admin'
+  end
+
+  def plan_active?
+    plan.present? && plan_expires_at.present? && plan_expires_at > Time.current
+  end
+
+  def plan_duration
+    case plan
+    when 'free' then 1.hour
+    when 'silver' then 6.hours
+    when 'gold' then 12.hours
     end
   end
 end
