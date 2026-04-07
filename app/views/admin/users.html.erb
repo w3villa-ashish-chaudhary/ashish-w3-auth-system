@@ -1,16 +1,36 @@
 <div style="max-width: 1000px; margin: 40px auto; padding: 0 20px;">
   <h2>Admin Panel — User Management</h2>
 
+  <!-- Search Bar -->
   <div style="margin-bottom: 20px;">
     <%= form_tag admin_users_path, method: :get, data: { turbo: false } do %>
-      <div style="display: flex; gap: 10px;">
+      <div style="display: flex; gap: 10px; width: 100%; align-items: center;">
+        
         <%= text_field_tag :search, params[:search], placeholder: "Search by email...",
-         style: "flex: 1; padding: 10px; border: 1px solid var(--input-border); border-radius: 6px; background: var(--input-bg); color: var(--text) !important; font-size: 14px;" %>
-        <%= submit_tag "Search", style: "padding: 10px 20px; background: #4f8ef7; color: white; border: none; border-radius: 6px; cursor: pointer;" %>
+         style: "flex: 1;
+         min-width: 300px;
+         padding: 12px;
+         border: 1px solid var(--input-border);
+         border-radius: 8px;
+         background: var(--input-bg);
+         color: #fff;
+         font-size: 14px;
+         outline: none;" %>
+
+        <%= submit_tag "Search",
+         style: "padding: 12px 24px;
+         background: #4f8ef7;
+         color: white;
+         border: none;
+         border-radius: 8px;
+         cursor: pointer;
+         font-size: 14px;" %>
+
       </div>
     <% end %>
   </div>
 
+  <!-- Table -->
   <table style="width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 8px; overflow: hidden;">
     <thead>
       <tr style="background: var(--btn-bg);">
@@ -22,33 +42,61 @@
         <th style="padding: 12px; text-align: left; color: var(--label);">Joined</th>
       </tr>
     </thead>
+
     <tbody>
       <% @users.each do |user| %>
         <tr style="border-top: 1px solid var(--border);">
-          <td style="padding: 12px; font-size: 14px;"><%= user.email %></td>
+          
           <td style="padding: 12px; font-size: 14px;">
-            <span style="padding: 3px 8px; border-radius: 4px; font-size: 12px; background: <%= user.confirmed? ? '#1a3a2a' : '#3a1a1a' %>; color: <%= user.confirmed? ? '#52b788' : '#e07070' %>;">
+            <%= user.email %>
+          </td>
+
+          <td style="padding: 12px; font-size: 14px;">
+            <span style="
+              padding: 4px 10px;
+              border-radius: 6px;
+              font-size: 12px;
+              background: <%= user.confirmed? ? '#1a3a2a' : '#3a1a1a' %>;
+              color: <%= user.confirmed? ? '#52b788' : '#e07070' %>;
+            ">
               <%= user.confirmed? ? 'Verified' : 'Unverified' %>
             </span>
           </td>
+
           <td style="padding: 12px; font-size: 14px;">
             <%= user.plan.present? ? user.plan.capitalize : 'None' %>
           </td>
+
           <td style="padding: 12px; font-size: 14px;">
             <%= user.plan_expires_at.present? ? user.plan_expires_at.strftime("%d %b %Y %I:%M %p") : '-' %>
           </td>
-          <td style="padding: 12px; font-size: 14px;"><%= user.role.present? ? user.role.capitalize : 'User' %></td>
-          <td style="padding: 12px; font-size: 14px;"><%= user.created_at.strftime("%d %b %Y") %></td>
+
+          <td style="padding: 12px; font-size: 14px;">
+            <%= user.role.present? ? user.role.capitalize : 'User' %>
+          </td>
+
+          <td style="padding: 12px; font-size: 14px;">
+            <%= user.created_at.strftime("%d %b %Y") %>
+          </td>
+
         </tr>
       <% end %>
     </tbody>
   </table>
 
+  <!-- Pagination -->
   <div style="margin-top: 20px; text-align: center;">
     <%= paginate @users %>
   </div>
 
+  <!-- Back -->
   <div style="margin-top: 20px;">
     <%= link_to "Back to Dashboard", dashboard_path, style: "color: var(--link);" %>
   </div>
 </div>
+
+<style>
+  input::placeholder {
+    color: #aaa;
+  }
+</style>
