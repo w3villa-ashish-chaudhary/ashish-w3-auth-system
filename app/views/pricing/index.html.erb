@@ -23,9 +23,13 @@
           <% end %>
         </ul>
 
+        <% plans_disabled = plan[:name].downcase == current_user.plan && current_user.plan_active? %>
+
         <%= form_tag payment_create_path, method: :post, data: { turbo: false } do %>
-          <%= hidden_field_tag :plan, plan[:name].downcase %>
-          <%= submit_tag "Get #{plan[:name]}", style: "width: 100%; padding: 10px; background: #{plan[:color]}; color: white; border: none; border-radius: 6px; font-size: 15px; cursor: pointer;" %>
+        <%= hidden_field_tag :plan, plan[:name].downcase %>
+        <%= submit_tag "#{plans_disabled ? '✓ Active' : "Get #{plan[:name]}"}",
+            disabled: plans_disabled,
+            style: "width: 100%; padding: 10px; background: #{plans_disabled ? '#2d6a4f' : plan[:color]}; color: white; border: none; border-radius: 6px; font-size: 15px; cursor: #{plans_disabled ? 'not-allowed' : 'pointer'}; opacity: #{plans_disabled ? '0.7' : '1'};" %>
         <% end %>
       </div>
     <% end %>
